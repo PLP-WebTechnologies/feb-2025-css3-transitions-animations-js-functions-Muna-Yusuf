@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Webpage with Animations</title>
+    <style>
+        /* CSS Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Style for animated element */
+        .animate-box {
+            width: 200px;
+            height: 200px;
+            background-color: lightcoral;
+            margin: 20px;
+            display: none;
+            animation: slideIn 2s forwards;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* Display data from localStorage */
+        .stored-data {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Webpage with CSS Animations</h1>
+
+    <!-- Button to trigger animation -->
+    <button class="button" id="animateButton">Animate Box</button>
+
+    <!-- Animated box -->
+    <div class="animate-box" id="animatedBox"></div>
+
+    <!-- Store and display data -->
+    <input type="text" id="dataInput" placeholder="Enter some data">
+    <button class="button" id="storeDataButton">Store Data</button>
+
+    <div class="stored-data" id="storedData"></div>
+
+    <script>
+        // Trigger animation when button is clicked
+        const animateButton = document.getElementById('animateButton');
+        const animatedBox = document.getElementById('animatedBox');
+
+        animateButton.addEventListener('click', () => {
+            animatedBox.style.display = 'block'; // Show the box
+        });
+
+        // Store data in localStorage
+        const storeDataButton = document.getElementById('storeDataButton');
+        const dataInput = document.getElementById('dataInput');
+        const storedDataDisplay = document.getElementById('storedData');
+
+        storeDataButton.addEventListener('click', () => {
+            const inputData = dataInput.value;
+            if (inputData) {
+                localStorage.setItem('storedData', inputData); // Save data to localStorage
+                dataInput.value = ''; // Clear the input field
+                displayStoredData(); // Display stored data
+            }
+        });
+
+        // Display stored data from localStorage
+        function displayStoredData() {
+            const storedData = localStorage.getItem('storedData');
+            if (storedData) {
+                storedDataDisplay.textContent = `Stored Data: ${storedData}`;
+            } else {
+                storedDataDisplay.textContent = 'No data stored.';
+            }
+        }
+
+        // Show stored data on page load
+        displayStoredData();
+    </script>
+</body>
+</html>
